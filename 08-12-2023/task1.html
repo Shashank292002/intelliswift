@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Count per Language</title>
+</head>
+<body>
+
+<h1>Movie Count per Language</h1>
+
+<div id="movieCountContainer"></div>
+
+<script>
+    function run() {
+        var movies = getMovies(); 
+
+        var languageCountMap = {};
+
+        // Count movies per language
+        movies.forEach(function(movie) {
+            var language = movie.originalLanguage;
+            languageCountMap[language] = (languageCountMap[language] || 0) + 1;
+        });
+
+        var movieCountContainer = document.getElementById('movieCountContainer');
+        for (var language in languageCountMap) {
+            var count = languageCountMap[language];
+            var paragraph = document.createElement('p');
+            paragraph.textContent = language + ": " + count;
+            movieCountContainer.appendChild(paragraph);
+        }
+    }
+
+    function getMovies() {
+        return [
+            { originalLanguage: "en" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" },
+            { originalLanguage: "en" },
+            { originalLanguage: "fr" },
+            { originalLanguage: "es" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" },
+            { originalLanguage: "fr" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" }
+        ];
+    }
+
+    run();
+</script>
+
+
+</body>
+</html>

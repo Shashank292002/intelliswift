@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Count per Language</title>
+    <style>
+        .ui.celled.table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .ui.celled.table th, .ui.celled.table td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .ui.celled.table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Movie Count per Language</h1>
+
+<table class="ui celled table" id="movieCountTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+    function run() {
+        var movies = getMovies(); 
+        var languagesMap = getLanguagesMap(); 
+
+        var languageCountMap = {};
+
+        movies.forEach(function(movie) {
+            var languageCode = movie.originalLanguage;
+            languageCountMap[languageCode] = (languageCountMap[languageCode] || 0) + 1;
+        });
+
+        var movieCountTable = document.getElementById('movieCountTable').getElementsByTagName('tbody')[0];
+        for (var languageCode in languageCountMap) {
+            var count = languageCountMap[languageCode];
+            var languageInfo = languagesMap[languageCode];
+            var languageName = languageInfo ? languageInfo.english_name : "Unknown";
+
+            var row = movieCountTable.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+
+            cell1.setAttribute('data-label', 'Name');
+            cell1.textContent = `${languageName} (${languageInfo ? languageInfo.english_name : languageCode})`;
+
+            cell2.setAttribute('data-label', 'Count');
+            cell2.textContent = count;
+        }
+    }
+
+    function getMovies() {
+        return [
+            { originalLanguage: "en" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" },
+            { originalLanguage: "en" },
+            { originalLanguage: "fr" },
+            { originalLanguage: "es" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" },
+            { originalLanguage: "fr" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" }
+        ];
+    }
+
+    function getLanguagesMap() {
+        var languagesMap = {};
+        var languages = [
+            {
+                "iso_639_1": "en",
+                "english_name": "English",
+                "name": "English"
+            },
+            {
+                "iso_639_1": "es",
+                "english_name": "Spanish",
+                "name": "Español"
+            },
+        ];
+
+        languages.forEach(function(language) {
+            languagesMap[language.iso_639_1] = language;
+        });
+
+        return languagesMap;
+    }
+
+    run();
+</script>
+
+</body>
+</html>

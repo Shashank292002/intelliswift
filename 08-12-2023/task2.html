@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Count per Language</title>
+</head>
+<body>
+
+<h1>Movie Count per Language</h1>
+
+<div id="movieCountContainer"></div>
+
+<script>
+    function run() {
+        var movies = getMovies(); 
+        var languagesMap = getLanguagesMap(); 
+        var languageCountMap = {};
+
+        movies.forEach(function(movie) {
+            var languageCode = movie.originalLanguage;
+            languageCountMap[languageCode] = (languageCountMap[languageCode] || 0) + 1;
+        });
+
+        var movieCountContainer = document.getElementById('movieCountContainer');
+        for (var languageCode in languageCountMap) {
+            var count = languageCountMap[languageCode];
+            var languageInfo = languagesMap[languageCode];
+            var languageName = languageInfo ? languageInfo.english_name : "Unknown";
+
+            var paragraph = document.createElement('p');
+            paragraph.textContent = `${languageName} (${languageInfo ? languageInfo.english_name : languageCode}): ${count}`;
+            movieCountContainer.appendChild(paragraph);
+        }
+    }
+
+    function getMovies() {
+        return [
+            { originalLanguage: "en" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" },
+            { originalLanguage: "en" },
+            { originalLanguage: "fr" },
+            { originalLanguage: "es" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" },
+            { originalLanguage: "fr" },
+            { originalLanguage: "en" },
+            { originalLanguage: "es" }
+        ];
+    }
+
+    function getLanguagesMap() {
+        var languagesMap = {};
+        var languages = [
+            {
+                "iso_639_1": "en",
+                "english_name": "English",
+                "name": "English"
+            },
+            {
+                "iso_639_1": "es",
+                "english_name": "Spanish",
+                "name": "Español"
+            },
+        ];
+
+        languages.forEach(function(language) {
+            languagesMap[language.iso_639_1] = language;
+        });
+
+        return languagesMap;
+    }
+
+    run();
+</script>
+
+</body>
+</html>
