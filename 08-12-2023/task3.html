@@ -4,87 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Count per Language</title>
-    <style>
-        .ui.celled.table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        .ui.celled.table th, .ui.celled.table td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        .ui.celled.table th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 </head>
 <body>
 
-<h1>Movie Count per Language</h1>
-
-<table class="ui celled table" id="movieCountTable">
+<button onclick="displayMovieCount()">Show Movie Count</button>
+<table class="ui celled table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Count</th>
+      <th data-label="Language">Language</th>
+      <th data-label="Count">Count</th>
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody id="output">
+  </tbody>
 </table>
 
 <script>
-    function run() {
-        var movies = getMovies(); 
-        var languagesMap = getLanguagesMap(); 
+    function countMoviesPerLanguage(movies, languages) {
+        const languageMap = new Map();
+        const movieCountMap = new Map();
 
-        var languageCountMap = {};
-
-        movies.forEach(function(movie) {
-            var languageCode = movie.originalLanguage;
-            languageCountMap[languageCode] = (languageCountMap[languageCode] || 0) + 1;
+        languages.forEach(language => {
+            languageMap.set(language.iso_639_1, language);
         });
 
-        var movieCountTable = document.getElementById('movieCountTable').getElementsByTagName('tbody')[0];
-        for (var languageCode in languageCountMap) {
-            var count = languageCountMap[languageCode];
-            var languageInfo = languagesMap[languageCode];
-            var languageName = languageInfo ? languageInfo.english_name : "Unknown";
+        movies.forEach(movie => {
+            const languageCode = movie.originalLanguage;
+            movieCountMap.set(languageCode, (movieCountMap.get(languageCode) || 0) + 1);
+        });
 
-            var row = movieCountTable.insertRow();
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-
-            cell1.setAttribute('data-label', 'Name');
-            cell1.textContent = `${languageName} (${languageInfo ? languageInfo.english_name : languageCode})`;
-
-            cell2.setAttribute('data-label', 'Count');
-            cell2.textContent = count;
-        }
+        return { languageMap, movieCountMap };
     }
 
-    function getMovies() {
-        return [
-            { originalLanguage: "en" },
-            { originalLanguage: "en" },
-            { originalLanguage: "es" },
-            { originalLanguage: "en" },
-            { originalLanguage: "fr" },
-            { originalLanguage: "es" },
-            { originalLanguage: "en" },
-            { originalLanguage: "es" },
-            { originalLanguage: "fr" },
-            { originalLanguage: "en" },
-            { originalLanguage: "es" }
+    function displayMovieCount() {
+        const movies = [
+            { title: 'Movie 1', originalLanguage: 'en' },
+            { title: 'Movie 2', originalLanguage: 'es' },
+            { title: 'Movie 3', originalLanguage: 'en' },
         ];
-    }
 
-    function getLanguagesMap() {
-        var languagesMap = {};
-        var languages = [
+        const languages = [
             {
                 "iso_639_1": "en",
                 "english_name": "English",
@@ -97,14 +57,18 @@
             },
         ];
 
-        languages.forEach(function(language) {
-            languagesMap[language.iso_639_1] = language;
+        const { languageMap, movieCountMap } = countMoviesPerLanguage(movies, languages);
+        const outputTableBody = document.getElementById('output');
+        
+        let htmlOutput = '';
+        
+        movieCountMap.forEach((count, languageCode) => {
+            const language = languageMap.get(languageCode);
+            htmlOutput += `<tr><td data-label="Language">${language.english_name} (${language.name})</td><td data-label="Count">${count}</td></tr>`;
         });
-
-        return languagesMap;
+        
+        outputTableBody.innerHTML = htmlOutput;
     }
-
-    run();
 </script>
 
 </body>
