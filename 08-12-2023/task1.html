@@ -7,50 +7,52 @@
 </head>
 <body>
 
-<h1>Movie Count per Language</h1>
-
-<div id="movieCountContainer"></div>
+<button onclick="displayMovieCount()">Show Movie Count</button>
+<div id="output"></div>
 
 <script>
-    function run() {
-        var movies = getMovies(); 
+    function countMoviesPerLanguage(movies) {
+        const movieCountMap = new Map();
 
-        var languageCountMap = {};
-
-        // Count movies per language
-        movies.forEach(function(movie) {
-            var language = movie.originalLanguage;
-            languageCountMap[language] = (languageCountMap[language] || 0) + 1;
+        movies.forEach(movie => {
+            const language = movie.originalLanguage;
+            movieCountMap.set(language, (movieCountMap.get(language) || 0) + 1);
         });
 
-        var movieCountContainer = document.getElementById('movieCountContainer');
-        for (var language in languageCountMap) {
-            var count = languageCountMap[language];
-            var paragraph = document.createElement('p');
-            paragraph.textContent = language + ": " + count;
-            movieCountContainer.appendChild(paragraph);
-        }
+        return movieCountMap;
     }
 
-    function getMovies() {
-        return [
-            { originalLanguage: "en" },
-            { originalLanguage: "en" },
-            { originalLanguage: "es" },
-            { originalLanguage: "en" },
-            { originalLanguage: "fr" },
-            { originalLanguage: "es" },
-            { originalLanguage: "en" },
-            { originalLanguage: "es" },
-            { originalLanguage: "fr" },
-            { originalLanguage: "en" },
-            { originalLanguage: "es" }
+    function displayMovieCount() {
+        const movies = [
+            { title: 'Movie 1', originalLanguage: 'en' },
+            { title: 'Movie 2', originalLanguage: 'es' },
+            { title: 'Movie 3', originalLanguage: 'en' },
+            { title: 'Movie 4', originalLanguage: 'es' },
+            { title: 'Movie 5', originalLanguage: 'es' },
+            { title: 'Movie 6', originalLanguage: 'en' },
+            { title: 'Movie 7', originalLanguage: 'fr' },
+            { title: 'Movie 8', originalLanguage: 'fr' },
+            { title: 'Movie 9', originalLanguage: 'fr' },
+            { title: 'Movie 10', originalLanguage: 'en' },
+
+
+
         ];
+
+        const movieCountMap = countMoviesPerLanguage(movies);
+        const outputDiv = document.getElementById('output');
+        
+        let htmlOutput = '<h2>Movie Count per Language</h2>';
+        htmlOutput += '<ul>';
+        
+        movieCountMap.forEach((count, language) => {
+            htmlOutput += `<li>${language}: ${count}</li>`;
+        });
+        
+        htmlOutput += '</ul>';
+        outputDiv.innerHTML = htmlOutput;
     }
-
-    run();
 </script>
-
 
 </body>
 </html>
