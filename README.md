@@ -2,7 +2,7 @@
 
 # Final Project
 
-The **Movie Selector** is a web application designed to help users browse and select movies based on different criteria such as categories, decades, genres, and cast members. Utilizing the TMDB (The Movie Database) API, this tool offers an interactive platform for movie enthusiasts.
+The **Final project(Movie Filter)** is a web application designed to help users browse and select movies based on different criteria such as categories, decades, genres, and cast members. Utilizing the TMDB (The Movie Database) API, this tool offers an interactive platform for movie enthusiasts.
 
 ## Features
 
