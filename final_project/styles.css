@@ -1,7 +1,7 @@
 /* Basic styling for the body */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f5f7fa; /* Soft gray background */
     padding: 20px;
 }
 
@@ -11,61 +11,88 @@ body {
 #genreSelection,
 #movieSelection,
 .ui.segment {
-    margin-bottom: 20px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Radio buttons and labels */
-#categorySelection input[type="radio"],
-#categorySelection label {
-    margin-right: 10px;
+#categorySelection input[type="radio"] {
+    display: none; /* Hide the default radio buttons */
+}
+
+#categorySelection input[type="radio"] + label {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    color: #2c3e50;
+}
+
+#categorySelection input[type="radio"] + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #3498db;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#categorySelection input[type="radio"]:checked + label:before {
+    border-color: #3498db;
+    background-color: #3498db;
 }
 
 /* Select dropdowns */
 select.dropdown {
     width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d8e0;
+    background-color: #f7f9fc;
 }
 
 /* Movie Poster styling */
 #moviePoster img {
     max-width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Grid columns */
 .ui.grid .column {
-    padding: 10px;
+    padding: 14px;
 }
 
 /* Titles */
 h1 {
-    color: #333;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    color: #2c3e50;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    font-weight: 600;
 }
 
 /* Overview and cast info */
 #overview,
 #castInfo {
-    margin-top: 20px;
-}
-
-/* Hiding default dropdown arrow */
-.dropdown i.dropdown.icon {
-    display: none;
+    margin-top: 24px;
+    color: #666;
 }
 
 /* Styling for the filter container */
 #filterContainer {
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 28px 0;
+    padding: 14px;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,32 +100,116 @@ h1 {
 
 /* Styling for the search input */
 #searchInput {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    flex-grow: 1; /* Takes up the available space */
-    margin-right: 10px;
+    padding: 14px;
+    border: 1px solid #d1d8e0;
+    border-radius: 8px;
+    flex-grow: 1;
+    margin-right: 14px;
     font-size: 16px;
-    outline: none; /* Removes the default outline */
-    transition: border-color 0.3s ease-in-out; /* Smooth transition for the border color */
+    transition: border-color 0.3s ease-in-out;
 }
 
 #searchInput:focus {
-    border-color: #007bff; /* Highlight the border when input is focused */
+    border-color: #3498db;
 }
 
 /* Styling for the apply button */
 button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 14px 26px;
+    background-color: #3498db;
     border: none;
-    border-radius: 4px;
-    color: white;
+    border-radius: 8px;
+    color: #ffffff;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out; /* Smooth transition for the background color */
+    transition: background-color 0.3s ease-in-out;
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #2980b9;
 }
+
+/* Cast display border */
+#castInfo {
+    border: 2px solid #d1d8e0; /* Light gray border */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+/* Styling for the decade selection dropdown */
+#decadeSelection select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d8e0;
+    background-color: #f7f9fc;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#decadeSelection select:focus {
+    border-color: #3498db;
+}
+/* Styling for checkboxes */
+input[type="checkbox"] {
+    display: none; /* Hide the default checkbox */
+}
+
+input[type="checkbox"] + label {
+    display: inline-block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    color: #333; /* Darker text color */
+    margin-right: 25px;
+}
+
+input[type="checkbox"] + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid #555; /* Darker border */
+    background-color: #fff; /* White background */
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+input[type="checkbox"]:checked + label:before {
+    background-color: #3498db; /* Blue background when checked */
+    border-color: #3498db; /* Blue border when checked */
+}
+
+/* Styling for "Select a Movie" dropdown */
+#movies {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d8e0;
+    background-color: #f7f9fc;
+    font-size: 16px;
+    appearance: none; /* Remove default appearance */
+    -webkit-appearance: none; /* Remove default appearance for Chrome */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>'); /* Dropdown arrow */
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 30px; /* Space for the arrow */
+    cursor: pointer;
+}
+
+#movies:focus {
+    border-color: #3498db; /* Highlight color when focused */
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Optional: Add a subtle shadow on focus */
+}
+
+/* Hide the dropdown arrow in Edge and Firefox */
+@supports (-ms-ime-align: auto) {
+    #movies {
+        background-image: none;
+        padding-right: 12px; /* Adjust padding for Edge */
+    }
+}
+
